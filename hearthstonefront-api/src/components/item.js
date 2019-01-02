@@ -16,16 +16,14 @@ class Item extends Component
   render()
   {
     let url = "https://art.hearthstonejson.com/v1/render/latest/frFR/512x/"+ this.props.id + ".png"
-    console.log(url);
-
     return (
-      <div class="container">
-        <div class="row valign-wrapper card-panel teal lighten-2">
-          <div class="col s2">
-           <img class="responsive-img" alt="Image Not Found <3" src={url}/>
+      <div className="container">
+        <div className="row valign-wrapper card-panel teal lighten-2">
+          <div className="col s2">
+           <img className="responsive-img" alt="Image Not Found <3" src={url}/>
            </div>
-          <div class="col s10">
-            <p class="flow-text">{this.props.name}</p>
+          <div className="col s10">
+            <p className="flow-text">{this.props.name}</p>
           </div>
         </div>
       </div>

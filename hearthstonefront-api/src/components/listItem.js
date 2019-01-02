@@ -13,9 +13,9 @@ class ListItem extends Component
   }
   componentWillReceiveProps(nextProps)
   {
-    if(this.props != nextProps)
+    if(this.props !== nextProps)
     {
-      if(nextProps.items != "" && nextProps.items != undefined)
+      if(nextProps.items !== "" && nextProps.items !== undefined)
       {
         this.setState({items: nextProps.items})
         let temp = this.generateItem(nextProps.items)
