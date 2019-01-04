@@ -4,16 +4,38 @@ import * as Constant from '../asset/icon.js';
 
 class SearchTab extends Component
 {
+  constructor(props)
+  {
+    super(props)
+    this.state = {selected:null,text:""}
+
+  }
+  onChange(event)
+  {
+    this.setState({selected:event.nativeEvent.target.value});
+    console.log(this.state.text)
+  }
+
+  onChangeText(event)
+  {
+
+    this.setState({text:event.target.value})
+  }
 
   render()
   {
     return (
       <div className="row card-panel">
         <div className="col s3">
-          <input type="text" id="autocomplete-input" placeholder="Filtre" class="autocomplete"/>
+          <input
+          type="text"
+          id="autocomplete-input"
+          placeholder="Filtre"
+          className="autocomplete"
+          onChange={this.onChangeText.bind(this)}/>
         </div>
         <div className="col s2">
-          <select class="browser-default">
+          <select className="browser-default" onChange={this.onChange.bind(this)}>
             <option value="artist">Artist</option>
             <option value="cardClass">CardClass</option>
             <option value="collectible">Collectible</option>
@@ -27,7 +49,10 @@ class SearchTab extends Component
           </select>
         </div>
         <div className="col s2 offset-s5">
-        <a class="waves-effect waves-light btn-large">Rechercher</a>
+        <button className="waves-effect waves-light btn" onClick={this.props.search.bind(this,this.state.selected,this.state.text,true)}>
+        <i className="material-icons">keyboard_arrow_left</i>
+        </button>
+
         </div>
       </div>
     );

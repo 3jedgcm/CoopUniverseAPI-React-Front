@@ -12,7 +12,7 @@ class NavigationButton extends Component
   render()
   {
     return (
-      <div class="row text-align center">
+      <div className="row text-align center">
           <button className="waves-effect waves-light btn" onClick={this.props.previous}>
           <i className="material-icons">keyboard_arrow_left</i>
           </button>

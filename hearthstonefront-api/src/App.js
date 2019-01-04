@@ -38,16 +38,34 @@ class App extends Component
    console.log(this.state.start);
  }
 
+ search(filter,value,withFilter)
+ {
+   
+   let url;
+   if(withFilter)
+   {
+     url = 'https://api.coopuniverse.fr/card/filter?filter='+ filter +'&value_filter='+ value +'';
+   }
+   else
+   {
+     url = 'https://api.coopuniverse.fr/card/';
+   }
+
+   fetch(url)
+     .then(response => response.json())
+     .then(data => this.setState({ items: data }));
+ }
+
 
 
 
   render()
   {
     return (
-      <div class="container">
+      <div className="container">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-         <SearchTab/>
+         <SearchTab search={this.search.bind(this)}/>
          <NavigationButton previous={this.previousPage.bind(this)} next={this.nextPage.bind(this)} />
         <ListItem  start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
       </div>
