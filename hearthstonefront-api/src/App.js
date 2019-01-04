@@ -40,7 +40,7 @@ class App extends Component
 
  search(filter,value,withFilter)
  {
-   
+
    let url;
    if(withFilter)
    {
@@ -64,7 +64,11 @@ class App extends Component
     return (
       <div className="container">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+
+
+
          <SearchTab search={this.search.bind(this)}/>
          <NavigationButton previous={this.previousPage.bind(this)} next={this.nextPage.bind(this)} />
         <ListItem  start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>

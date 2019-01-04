@@ -26,7 +26,7 @@ class Item extends Component
             <p className="flow-text">{this.props.name}</p>
           </div>
           <div className="col s11">
-            <p className="flow-text">{this.props.name}</p>
+            <p className="flow-text">{this.props.description}</p>
           </div>
         </div>
       </div>
