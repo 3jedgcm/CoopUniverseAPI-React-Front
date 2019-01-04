@@ -15,19 +15,24 @@ class ListItem extends Component
   {
     if(this.props !== nextProps)
     {
-      if(nextProps.items !== "" && nextProps.items !== undefined)
+
+      if(nextProps.items.data.cards !== null && nextProps.items.data.cards !== "" && nextProps.items.data.cards !== undefined)
       {
         this.setState({items: nextProps.items})
         let temp = this.generateItem(nextProps.items)
         this.setState({displayItems:temp.slice(nextProps.start,nextProps.end)});
       }
+      else
+      {
+        this.setState({displayItems:null});
+      }
     }
   }
   generateItem(items)
   {
-    console.log(items)
+
     return items.data.cards.map((item) =>
-        <Item key={item.id} id={item.id} name={item.name} cost={item.cost} health={item.health} attack={item.attack} type={item.type} description={item.description} />
+        <Item key={item.id} id={item.id} name={item.name} cost={item.cost} health={item.health} attack={item.attack} type={item.type} description={item.text} />
     );
   }
 

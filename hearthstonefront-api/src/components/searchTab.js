@@ -46,11 +46,12 @@ class SearchTab extends Component
             <option value="set">Set</option>
             <option value="text">Text</option>
             <option value="type">Type</option>
+            <option value="rarity">Rarity</option>
           </select>
         </div>
         <div className="col s2 offset-s5">
         <button className="waves-effect waves-light btn" onClick={this.props.search.bind(this,this.state.selected,this.state.text,true)}>
-        <i className="material-icons">keyboard_arrow_left</i>
+        Rechercher
         </button>
 
         </div>
