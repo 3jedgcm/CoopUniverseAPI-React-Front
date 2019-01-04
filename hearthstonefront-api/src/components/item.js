@@ -19,10 +19,13 @@ class Item extends Component
     return (
       <div className="container">
         <div className="row valign-wrapper card-panel teal lighten-2">
-          <div className="col s2">
-           <img className="responsive-img" alt="Image Not Found <3" src={url}/>
-           </div>
+            <div className="col s8">
+              <img className="responsive-img" alt="Image Not Found <3" src={url}/>
+            </div>
           <div className="col s10">
+            <p className="flow-text">{this.props.name}</p>
+          </div>
+          <div className="col s11">
             <p className="flow-text">{this.props.name}</p>
           </div>
         </div>

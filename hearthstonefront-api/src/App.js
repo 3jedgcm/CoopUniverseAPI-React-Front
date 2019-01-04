@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchTab from './components/searchTab.js';
 import ListItem from './components/listItem.js';
+import NavigationButton from './components/navigationButton.js';
 import './asset/materialize.min.css';
 
 
@@ -9,7 +10,7 @@ class App extends Component
   constructor(props)
   {
     super(props)
-    this.state = {items: "",start: 0,sizePage: 35}
+    this.state = {items: "",start: 0,sizePage: 10}
     this.getFetch()
   }
 
@@ -43,21 +44,11 @@ class App extends Component
   render()
   {
     return (
-      <div >
+      <div class="container">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-
-
-        <button className="btn-floating waves-effect waves-light btn" onClick={this.previousPage.bind(this)}>
-        <i className="material-icons">keyboard_arrow_left</i>
-        </button>
-
-        <button className="btn-floating waves-effect waves-light btn" onClick={this.nextPage.bind(this)}>
-        <i className="material-icons">keyboard_arrow_right</i>
-        </button>
-
-        <SearchTab/>
-
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+         <SearchTab/>
+         <NavigationButton previous={this.previousPage.bind(this)} next={this.nextPage.bind(this)} />
         <ListItem  start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
       </div>
     );

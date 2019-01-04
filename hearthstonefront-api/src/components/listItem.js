@@ -26,9 +26,7 @@ class ListItem extends Component
   generateItem(items)
   {
     return items.data.cards.map((item) =>
-
         <Item key={item.id} id={item.id} name={item.name} cost={item.cost} health={item.health} attack={item.attack} type={item.type} description={item.description} />
-
     );
   }
 
