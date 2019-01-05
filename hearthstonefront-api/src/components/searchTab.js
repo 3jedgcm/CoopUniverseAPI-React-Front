@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as Constant from '../asset/icon.js';
-
+import Popup from "reactjs-popup";
 
 class SearchTab extends Component
 {
@@ -49,11 +49,16 @@ class SearchTab extends Component
             <option value="rarity">Rarity</option>
           </select>
         </div>
+        <div className="col s2">
+          <Popup trigger={<button className=" btn-floating waves-effect waves-light btn"><i class=" material-icons center">info</i></button>} position="right center">
+          <blockquote> Attention : La recherche est sensible à la casse !</blockquote>
+          </Popup>
+        </div>
+
         <div className="col s2 offset-s5">
         <button className="waves-effect waves-light btn" onClick={this.props.search.bind(this,this.state.selected,this.state.text,true)}>
         Rechercher
         </button>
-
         </div>
       </div>
     );
