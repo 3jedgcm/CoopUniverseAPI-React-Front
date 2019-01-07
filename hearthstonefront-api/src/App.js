@@ -18,7 +18,7 @@ class App extends Component
   {
     fetch('https://api.coopuniverse.fr/card/')
       .then(response => response.json())
-      .then(data => this.setState({ items: data }));
+      .then(data => this.setState({ items: data,  }));
   }
 
  nextPage()
@@ -53,7 +53,7 @@ class App extends Component
 
    fetch(url)
      .then(response => response.json())
-     .then(data => this.setState({ items: data }));
+     .then(data => this.setState({ items: data,start: 0,sizePage: 10 }));
  }
 
 
