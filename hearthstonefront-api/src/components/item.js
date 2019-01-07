@@ -14,7 +14,7 @@ class Item extends Component
 
   render()
   {
-    let url = "https://art.hearthstonejson.com/v1/orig/"+ this.props.id + ".png"
+    let url = "https://art.hearthstonejson.com/v1/orig/"+ this.props.data.id + ".png"
     return (
       <div className="container">
         <div className="card-panel teal lighten-2">
@@ -23,15 +23,15 @@ class Item extends Component
                 <img className="responsive-img imgArt" alt="Not Found / Loading" src={url}/>
               </div>
             <div className="col s10">
-              <p className="flow-text">{this.props.name}</p>
-              <p className="">{this.props.description}</p>
+              <p className="flow-text">{this.props.data.name}</p>
+              <p className="">{this.props.data.description}</p>
             </div>
             <div className="col s11">
-              <p className="">{this.props.text}</p>
+              <p className="">{this.props.data.text}</p>
             </div>
           </div>
           <div className="text-align center">
-          <button className="waves-effect waves-light btn" >
+          <button className="waves-effect waves-light btn" onClick={this.props.detailItem.bind(this,this.props.data)}>
             Detail de la carte
           </button>
           </div>

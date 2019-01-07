@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchTab from './components/searchTab.js';
 import ListItem from './components/listItem.js';
+import DetailItem from './components/detailItem.js';
 import NavigationButton from './components/navigationButton.js';
 import './asset/materialize.min.css';
 
@@ -18,7 +19,7 @@ class App extends Component
   {
     fetch('https://api.coopuniverse.fr/card/')
       .then(response => response.json())
-      .then(data => this.setState({ items: data,maxSize: data.data.cards.length }));
+      .then(data => this.setState({ items: data,maxSize: data.data.cards.length, detailNavigator:false}));
   }
 
  nextPage()
@@ -59,6 +60,12 @@ class App extends Component
      .then(data => this.setState({ items: data,start: 0,sizePage: 10,maxSize: data.data.cards.length }));
  }
 
+ detailItem(item)
+ {
+   this.setState({detailNavigator:true,detailItem:item});
+
+ }
+
 
 
 
@@ -74,9 +81,19 @@ class App extends Component
 
 
 
-         <SearchTab search={this.search.bind(this)}/>
-         <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
-        <ListItem  start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
+
+         {
+           this.state.detailNavigator
+          ?
+          <DetailItem data={this.state.detailItem}/>
+          :
+          <div>
+            <SearchTab search={this.search.bind(this)}/>
+            <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
+            <ListItem detailItem={this.detailItem.bind(this)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
+          </div>
+        }
+
       </div>
     );
   }

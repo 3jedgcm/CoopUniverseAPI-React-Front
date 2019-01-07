@@ -32,7 +32,7 @@ class ListItem extends Component
   {
 
     return items.data.cards.map((item) =>
-        <Item key={item.id} id={item.id} name={item.name} cost={item.cost} health={item.health} attack={item.attack} type={item.type} description={item.flavor} class={item.playerClass} text={item.text} />
+        <Item key={item.id} detailItem={this.props.detailItem} data={item} />
     );
   }
 
