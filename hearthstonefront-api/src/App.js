@@ -10,7 +10,7 @@ class App extends Component
   constructor(props)
   {
     super(props)
-    this.state = {items: "",start: 0,sizePage: 10}
+    this.state = {items: "",start: 0,sizePage: 10,maxSize:0}
     this.getFetch()
   }
 
@@ -18,14 +18,17 @@ class App extends Component
   {
     fetch('https://api.coopuniverse.fr/card/')
       .then(response => response.json())
-      .then(data => this.setState({ items: data,  }));
+      .then(data => this.setState({ items: data,maxSize: data.data.cards.length }));
   }
 
  nextPage()
  {
-  let temp = this.state.start + this.state.sizePage;
-  this.setState({start:temp});
-  console.log(this.state.start);
+   if(this.state.start + this.state.sizePage < this.state.maxSize)
+   {
+     let temp = this.state.start + this.state.sizePage;
+     this.setState({start:temp});
+     console.log(this.state.start);
+   }
  }
 
  previousPage()
@@ -53,7 +56,7 @@ class App extends Component
 
    fetch(url)
      .then(response => response.json())
-     .then(data => this.setState({ items: data,start: 0,sizePage: 10 }));
+     .then(data => this.setState({ items: data,start: 0,sizePage: 10,maxSize: data.data.cards.length }));
  }
 
 
@@ -61,6 +64,8 @@ class App extends Component
 
   render()
   {
+    let nextButton = this.state.start + this.state.sizePage < this.state.maxSize
+    let previousButton = this.state.start > 0
     return (
       <div className="container">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -70,7 +75,7 @@ class App extends Component
 
 
          <SearchTab search={this.search.bind(this)}/>
-         <NavigationButton previous={this.previousPage.bind(this)} next={this.nextPage.bind(this)} />
+         <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
         <ListItem  start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
       </div>
     );

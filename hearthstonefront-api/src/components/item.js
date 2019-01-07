@@ -18,7 +18,6 @@ class Item extends Component
     return (
       <div className="container">
         <div className="card-panel teal lighten-2">
-
           <div className="row valign-wrapper">
             <div className="col s8">
                 <img className="responsive-img imgArt" alt="Not Found / Loading" src={url}/>
