@@ -5,7 +5,6 @@ import DetailItem from './components/detailItem.js';
 import NavigationButton from './components/navigationButton.js';
 import './asset/materialize.min.css';
 
-
 class App extends Component
 {
   constructor(props)
@@ -44,7 +43,7 @@ class App extends Component
 
  search(filter,value,withFilter)
  {
-
+   this.setState({searchHistory:{filter:filter,value:value,withFilter:withFilter}})
    let url;
    if(withFilter)
    {
@@ -57,15 +56,35 @@ class App extends Component
 
    fetch(url)
      .then(response => response.json())
-     .then(data => this.setState({ items: data,start: 0,sizePage: 10,maxSize: data.data.cards.length }));
+     .then(data => {
+
+       if(data.data.cards != null)
+       {
+                this.setState({ items: data,start: 0,sizePage: 10,maxSize: data.data.cards.length })
+       }
+       else {
+          console.log("kikoo")
+           this.setState({items:null,start: 0,sizePage: 10,maxSize:0 })
+           console.log(this.state)
+       }
+
+     });
+
  }
 
  detailItem(item)
  {
-   this.setState({detailNavigator:true,detailItem:item});
-
+   let temp = this.state.detailNavigator
+   let secondTemp = this.state.start;
+   this.setState({detailNavigator:!temp,detailItem:item});
+    this.sleep(1).then(() => {
+    this.nextPage()
+    this.previousPage()
+    })
  }
-
+ sleep(time) {
+   return new Promise((resolve) => setTimeout(resolve, time));
+ }
 
 
 
@@ -76,19 +95,13 @@ class App extends Component
     return (
       <div className="container">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
-
-
-
-
-
          {
            this.state.detailNavigator
           ?
-          <DetailItem data={this.state.detailItem}/>
+          <DetailItem detailItem={this.detailItem.bind(this)} data={this.state.detailItem}/>
           :
           <div>
-            <SearchTab search={this.search.bind(this)}/>
+            <SearchTab search={this.search.bind(this)} numberOfCard={this.state.maxSize}/>
             <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
             <ListItem detailItem={this.detailItem.bind(this)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
           </div>

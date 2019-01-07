@@ -54,6 +54,9 @@ class SearchTab extends Component
           <blockquote> Attention : La recherche est sensible à la casse !</blockquote>
           </Popup>
         </div>
+        <div>
+          <p className="">{this.props.numberOfCard} cartes trouvés !</p>
+        </div>
 
         <div className="col s2 offset-s5">
         <button className="waves-effect waves-light btn" onClick={this.props.search.bind(this,this.state.selected,this.state.text,true)}>

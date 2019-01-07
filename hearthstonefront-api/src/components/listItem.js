@@ -13,10 +13,11 @@ class ListItem extends Component
   }
   componentWillReceiveProps(nextProps)
   {
+
     if(this.props !== nextProps)
     {
 
-      if(nextProps.items.data.cards !== null && nextProps.items.data.cards !== "" && nextProps.items.data.cards !== undefined)
+      if(nextProps.items != null)
       {
         this.setState({items: nextProps.items})
         let temp = this.generateItem(nextProps.items)
@@ -24,6 +25,7 @@ class ListItem extends Component
       }
       else
       {
+
         this.setState({displayItems:null});
       }
     }
