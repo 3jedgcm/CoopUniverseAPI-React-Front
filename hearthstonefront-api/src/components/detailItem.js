@@ -17,9 +17,7 @@ class DetailItem extends Component
     return (
       <div className="container text-align center">
         <div className="card-panel teal lighten-2 ">
-        <button className="waves-effect waves-light btn" onClick={this.props.detailItem.bind(this,null)}>
-          Retour
-        </button>
+
           <p className="flow-text">{this.props.data.name}</p>
           <p className="">Class : {this.props.data.playerClass} </p>
 
@@ -50,7 +48,9 @@ class DetailItem extends Component
         :null
         }
 
-
+        <button className="waves-effect waves-light btn" onClick={this.props.detailItem.bind(this,null)}>
+          Retour
+        </button>
         </div>
 
       </div>
