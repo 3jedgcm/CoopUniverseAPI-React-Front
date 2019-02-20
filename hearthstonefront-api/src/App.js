@@ -32,7 +32,6 @@ class App extends Component
 
  search(filter,value)
  {
-   console.log(filter,value)
    this.setState({searchHistory:{filter:filter,value:value}})
    let url = 'https://api.coopuniverse.fr/card/';
    if(filter && value)
@@ -78,7 +77,7 @@ class App extends Component
                 <NavigationButton previous={() => this.previousPage()} previousButtonState={previousButton} nextButtonState={nextButton} next={() => this.nextPage()} />
               </CardContent>
             </Card>
-                <ListItem detailItem={() => this.detailItem()} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
+                <ListItem detailItem={(item) => this.detailItem(item)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
           </div>
         }
       </div>
