@@ -19,7 +19,7 @@ class Item extends Component
     let newText = this.props.data.text &&  this.props.data.text.replace("<b>","").replace("</b>","")
 
     return (
-      <div className="container">
+      <div>
         <Paper elevation={1} style={{width:'400px',height:'700px'}}>
           <Grid >
               <Image className="responsive-img imgArt" alt="Not Found / Loading" src={url}/>
