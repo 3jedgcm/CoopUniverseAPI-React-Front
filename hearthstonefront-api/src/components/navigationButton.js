@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import * as Constant from '../asset/icon.js';
-
-
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon';
+import KeyboardLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardRight from '@material-ui/icons/KeyboardArrowRight';
 class NavigationButton extends Component
 {
-  constructor(props)
-  {
-    super(props);
-  }
 
   render()
   {
     return (
       <div className="row text-align center">
-        <button disabled={!this.props.previousButtonState} className="waves-effect waves-light btn" onClick={this.props.previous}>
-          <i className="material-icons">keyboard_arrow_left</i>
-        </button>
-        <button disabled={!this.props.nextButtonState} className="waves-effect waves-light btn" onClick={this.props.next}>
-          <i className="material-icons">keyboard_arrow_right</i>
-        </button>
+        <Grid container justify="center">
+          <Grid item >
+            <Button variant="contained"  color="primary" disabled={!this.props.previousButtonState} onClick={this.props.previous}>
+              <KeyboardLeft/>
+            </Button>
+          </Grid>
+          <Grid item style={{marginLeft:'300px'}} >
+            <Button variant="contained"  color="primary"  disabled={!this.props.nextButtonState} onClick={this.props.next}>
+              <KeyboardRight/>
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     );
   }

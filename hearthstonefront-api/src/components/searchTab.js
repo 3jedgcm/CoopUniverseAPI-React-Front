@@ -1,68 +1,90 @@
 import React, { Component } from 'react';
-import * as Constant from '../asset/icon.js';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 class SearchTab extends Component
 {
   constructor(props)
   {
     super(props)
-    this.state = {selected:null,text:""}
-
+    this.state = {menu:null,selected:"FILTER",text:""}
+    console.log(props)
   }
   onChange(event)
   {
     this.setState({selected:event.nativeEvent.target.value});
-    console.log(this.state.text)
   }
 
   onChangeText(event)
   {
 
-    this.setState({text:event.target.value})
+    this.setState({text:event.nativeEvent.target.value})
+  }
+
+  handleClick = event => {
+  this.setState({ menu: event.currentTarget })
+  }
+
+handleClose = event => {
+  event.currentTarget.textContent ?
+  this.setState({selected:event.currentTarget.textContent.toLowerCase(),menu: null })
+  :
+  this.setState({menu: null })
   }
 
   render()
   {
     return (
       <div className="row card-panel">
-        <div className="col s3">
-          <input
-          type="text"
-          id="autocomplete-input"
-          placeholder="Filtre"
-          className="autocomplete"
-          onChange={this.onChangeText.bind(this)}/>
-        </div>
-        <div className="col s2">
-          <select className="browser-default" onChange={this.onChange.bind(this)}>
-            <option value="artist">Artist</option>
-            <option value="cardClass">CardClass</option>
-            <option value="collectible">Collectible</option>
-            <option value="cost">Cost</option>
-            <option value="flavor">Flavor</option>
-            <option value="id">Id</option>
-            <option value="name">Name</option>
-            <option value="set">Set</option>
-            <option value="text">Text</option>
-            <option value="type">Type</option>
-            <option value="rarity">Rarity</option>
-          </select>
-        </div>
-        <div className="col s2">
+          <Grid container spacing={24} style={{marginBottom:"1%"}} justify="center" alignContent="center" alignContent="center" alignItems="center">
+            <Grid item xs={1}>
+              <TextField
+                id="standard-name"
+                label="Filtre"
+                onChange={(event) => this.onChangeText(event)}
+                />
+            </Grid>
+            <Grid item  xs={1}>
+              <Button
+                variant="outlined" color="primary"
+                aria-owns={this.state.menu ? 'simple-menu' : undefined}
+                aria-haspopup="true"
+                onClick={this.handleClick}>
+              {this.state.selected}
 
-        </div>
-        <div>
-          <p className="">{this.props.numberOfCard} cartes trouvés !</p>
-        </div>
-
-        <div className="col s2 offset-s5">
-        <button className="waves-effect waves-light btn" onClick={this.props.search.bind(this,this.state.selected,this.state.text,true)}>
-        Rechercher
-        </button>
-        </div>
+              </Button>
+              <Menu id="simple-menu"
+                anchorEl={this.state.menu}
+                open={Boolean(this.state.menu)}
+                onClose={this.handleClose}>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="artist">Artist</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="cardClass">CardClass</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="collectible">Collectible</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="cost">Cost</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="flavor">Flavor</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="id">Id</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="name">Name</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="set">Set</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="text">Text</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="type">Type</MenuItem>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="rarity">Rarity</MenuItem>
+              </Menu>
+              </Grid>
+              <Grid item xs={1}>
+            <Typography variant="body1" gutterBottom> {this.props.numberOfCard} cartes trouvés  !</Typography>
+            </Grid>
+            <Grid item xs={1}>
+            <Button variant="contained"  color="primary" className="waves-effect waves-light btn" onClick={() => this.props.search(this.state.selected,this.state.text)}>
+            Rechercher
+            </Button>
+            </Grid>
+          </Grid>
       </div>
     );
   }
 }
-
+//          <select className="browser-default" onChange={(event) => this.onChange(event)}>
 export default SearchTab;

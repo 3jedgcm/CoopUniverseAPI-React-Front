@@ -3,31 +3,22 @@ import SearchTab from './components/searchTab.js';
 import ListItem from './components/listItem.js';
 import DetailItem from './components/detailItem.js';
 import NavigationButton from './components/navigationButton.js';
-import './asset/materialize.min.css';
-
+import CardContent from '@material-ui/core/CardContent';
+import Card from '@material-ui/core/Card';
 class App extends Component
 {
   constructor(props)
   {
     super(props)
     this.state = {items: "",start: 0,sizePage: 10,maxSize:0}
-    this.getFetch()
-  }
-
-  getFetch()
-  {
-    fetch('https://api.coopuniverse.fr/card/')
-      .then(response => response.json())
-      .then(data => this.setState({ items: data,maxSize: data.data.cards.length, detailNavigator:false}));
+    this.search(null,null)
   }
 
  nextPage()
  {
    if(this.state.start + this.state.sizePage < this.state.maxSize)
    {
-     let temp = this.state.start + this.state.sizePage;
-     this.setState({start:temp});
-     console.log(this.state.start);
+     this.setState({start:this.state.start + this.state.sizePage});
    }
  }
 
@@ -35,58 +26,39 @@ class App extends Component
  {
    if(this.state.start !== 0)
    {
-     let temp = this.state.start - this.state.sizePage;
-     this.setState({start:temp});
+     this.setState({start:this.state.start - this.state.sizePage});
    }
-   console.log(this.state.start);
  }
 
- search(filter,value,withFilter)
+ search(filter,value)
  {
-   this.setState({searchHistory:{filter:filter,value:value,withFilter:withFilter}})
-   let url;
-   if(withFilter)
+   console.log(value)
+   this.setState({searchHistory:{filter:filter,value:value}})
+   let url = 'https://api.coopuniverse.fr/card/';
+   if(filter && value)
    {
-     url = 'https://api.coopuniverse.fr/card/filter?filter='+ filter +'&value_filter='+ value +'';
-   }
-   else
-   {
-     url = 'https://api.coopuniverse.fr/card/';
+     url = url + '?filter='+ filter +'&value_filter='+ value +'';
    }
 
    fetch(url)
      .then(response => response.json())
      .then(data => {
+         if(data.data.cards !== null)
+         {
+            this.setState({ items: data.data,maxSize: data.data.cards.length })
+         }
+         else
+         {
 
-       if(data.data.cards != null)
-       {
-                this.setState({ items: data,start: 0,sizePage: 10,maxSize: data.data.cards.length })
-       }
-       else {
-          console.log("kikoo")
-           this.setState({items:null,start: 0,sizePage: 10,maxSize:0 })
-           console.log(this.state)
-       }
-
+            this.setState({items:"",maxSize:0,start: 0 })
+         }
      });
-
  }
 
  detailItem(item)
  {
-   let temp = this.state.detailNavigator
-   let secondTemp = this.state.start;
-   this.setState({detailNavigator:!temp,detailItem:item});
-    this.sleep(1).then(() => {
-    this.nextPage()
-    this.previousPage()
-    })
+   this.setState({detailNavigator:!this.state.detailNavigator,detailItem:item});
  }
- sleep(time) {
-   return new Promise((resolve) => setTimeout(resolve, time));
- }
-
-
 
   render()
   {
@@ -94,19 +66,22 @@ class App extends Component
     let previousButton = this.state.start > 0
     return (
       <div className="container">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
          {
            this.state.detailNavigator
           ?
           <DetailItem detailItem={this.detailItem.bind(this)} data={this.state.detailItem}/>
           :
           <div>
-            <SearchTab search={this.search.bind(this)} numberOfCard={this.state.maxSize}/>
-            <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
-            <ListItem detailItem={this.detailItem.bind(this)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
+            <Card>
+              <CardContent>
+                <SearchTab search={this.search.bind(this)} numberOfCard={this.state.maxSize}/>
+                <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
+              </CardContent>
+            </Card>
+                <ListItem detailItem={this.detailItem.bind(this)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
           </div>
         }
-
       </div>
     );
   }

@@ -1,41 +1,46 @@
 import React, { Component } from 'react';
 import * as Constant from '../asset/icon.js';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Image from "react-graceful-image";
 import '../asset/style.css';
-import '../asset/materialize.min.css';
+
 
 class Item extends Component
 {
-
-  constructor(props)
-  {
-    super(props);
-
-  }
-
   render()
   {
-    let url = "https://art.hearthstonejson.com/v1/orig/"+ this.props.data.id + ".png"
+    const url = "https://art.hearthstonejson.com/v1/orig/"+ this.props.data.id + ".png"
+
+    let newText = this.props.data.text &&  this.props.data.text.replace("<b>","").replace("</b>","")
+
     return (
       <div className="container">
-        <div className="card-panel teal lighten-2">
-          <div className="row valign-wrapper">
-            <div className="col s8">
-                <img className="responsive-img imgArt" alt="Not Found / Loading" src={url}/>
-              </div>
-            <div className="col s10">
-              <p className="flow-text">{this.props.data.name}</p>
-              <p className="">{this.props.data.description}</p>
-            </div>
-            <div className="col s11">
-              <p className="">{this.props.data.text}</p>
-            </div>
-          </div>
-          <div className="text-align center">
-          <button className="waves-effect waves-light btn" onClick={this.props.detailItem.bind(this,this.props.data)}>
-            Detail de la carte
-          </button>
-          </div>
-        </div>
+        <Paper elevation={1} style={{width:'400px',height:'700px'}}>
+          <Grid >
+              <Image className="responsive-img imgArt" alt="Not Found / Loading" src={url}/>
+                <List>
+                  <ListItem alignItems = "flex-start">
+                    <Typography variant="h6" gutterBottom>{this.props.data.name} </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Typography variant="body1" gutterBottom>{this.props.data.description}</Typography>
+                  </ListItem>
+                  <ListItem >
+                    <Typography variant="body1" gutterBottom>{newText}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <Button variant="contained"  color="primary" onClick={() => this.props.detailItem(this.props.data)}>
+                        Detail de la carte
+                    </Button>
+                  </ListItem>
+               </List>
+          </Grid >
+            </Paper>
       </div>
     );
   }
