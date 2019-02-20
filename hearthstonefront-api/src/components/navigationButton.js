@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import * as Constant from '../asset/icon.js';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
 import KeyboardLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardRight from '@material-ui/icons/KeyboardArrowRight';
 class NavigationButton extends Component

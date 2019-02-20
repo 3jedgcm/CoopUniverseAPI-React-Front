@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import * as Constant from '../asset/icon.js';
-import '../asset/style.css';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';

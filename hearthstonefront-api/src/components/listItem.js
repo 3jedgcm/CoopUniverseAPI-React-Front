@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as Constant from '../asset/icon.js';
 import Item from './item.js';
 import List from '@material-ui/core/List';
 import ListItemMaterial from '@material-ui/core/ListItem';
