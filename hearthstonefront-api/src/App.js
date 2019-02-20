@@ -32,7 +32,7 @@ class App extends Component
 
  search(filter,value)
  {
-   console.log(value)
+   console.log(filter,value)
    this.setState({searchHistory:{filter:filter,value:value}})
    let url = 'https://api.coopuniverse.fr/card/';
    if(filter && value)
@@ -45,7 +45,7 @@ class App extends Component
      .then(data => {
          if(data.data.cards !== null)
          {
-            this.setState({ items: data.data,maxSize: data.data.cards.length })
+            this.setState({ items: data.data,maxSize: data.data.cards.length,start: 0 })
          }
          else
          {
@@ -66,20 +66,19 @@ class App extends Component
     let previousButton = this.state.start > 0
     return (
       <div className="container">
-
          {
            this.state.detailNavigator
           ?
-          <DetailItem detailItem={this.detailItem.bind(this)} data={this.state.detailItem}/>
+          <DetailItem detailItem={() => this.detailItem()} data={this.state.detailItem}/>
           :
           <div>
             <Card>
               <CardContent>
-                <SearchTab search={this.search.bind(this)} numberOfCard={this.state.maxSize}/>
-                <NavigationButton previous={this.previousPage.bind(this)} previousButtonState={previousButton} nextButtonState={nextButton} next={this.nextPage.bind(this)} />
+                <SearchTab search={(filter,value) => this.search(filter,value)} numberOfCard={this.state.maxSize}/>
+                <NavigationButton previous={() => this.previousPage()} previousButtonState={previousButton} nextButtonState={nextButton} next={() => this.nextPage()} />
               </CardContent>
             </Card>
-                <ListItem detailItem={this.detailItem.bind(this)} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
+                <ListItem detailItem={() => this.detailItem()} start={this.state.start} end={this.state.start + this.state.sizePage} items={this.state.items}/>
           </div>
         }
       </div>

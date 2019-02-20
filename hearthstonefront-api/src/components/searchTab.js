@@ -10,8 +10,7 @@ class SearchTab extends Component
   constructor(props)
   {
     super(props)
-    this.state = {menu:null,selected:"FILTER",text:""}
-    console.log(props)
+    this.state = {menu:null,selected:"name",text:""}
   }
   onChange(event)
   {
@@ -60,13 +59,13 @@ handleClose = event => {
                 anchorEl={this.state.menu}
                 open={Boolean(this.state.menu)}
                 onClose={this.handleClose}>
+                  <MenuItem  onClick={(event) => this.handleClose(event)} value="name">Name</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="artist">Artist</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="cardClass">CardClass</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="collectible">Collectible</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="cost">Cost</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="flavor">Flavor</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="id">Id</MenuItem>
-                  <MenuItem  onClick={(event) => this.handleClose(event)} value="name">Name</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="set">Set</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="text">Text</MenuItem>
                   <MenuItem  onClick={(event) => this.handleClose(event)} value="type">Type</MenuItem>

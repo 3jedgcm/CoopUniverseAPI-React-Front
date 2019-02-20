@@ -19,10 +19,10 @@ class DetailItem extends Component
         <List>
           <ListItem>
             <Image style={{width:'300px',height:'450px'}} alt="Not Found / Loading" src={url}/>
-            <Typography variant="body1" gutterBottom><b>Artiste : </b> {this.props.data.artist?this.props.data.artist:"Inconnu"}</Typography>
+            <Typography variant="body1" gutterBottom><b>Artiste : </b> {this.props.data.artist?this.props.data.artist:"inconnu"}</Typography>
           </ListItem>
           <ListItem>
-            <Typography variant="body1" gutterBottom><b>Description </b>  : {this.props.data.flavor}</Typography>
+            <Typography variant="body1" gutterBottom><b>Description </b>  : {this.props.data.flavor?this.props.data.flavor:"aucune description"}</Typography>
           </ListItem>
           <ListItem>
             <Typography variant="body1" gutterBottom><b>Rareté </b>: {this.props.data.rarity?this.props.data.rarity.toLowerCase():"non définis"}</Typography>
@@ -40,13 +40,13 @@ class DetailItem extends Component
               &&
               <div>
                 <ListItem>
-                  <Typography variant="body1" gutterBottom> Comment récuperer la carte :</Typography>
+                  <Typography variant="body1" gutterBottom> <b> Comment récuperer la carte :</b> </Typography>
                 </ListItem>
                 <ListItem>
-                  <Typography variant="body1" gutterBottom>Simple : {this.props.data.howToEarn}</Typography>
+                  <Typography variant="body1" gutterBottom><b>Simple </b>: {this.props.data.howToEarn}</Typography>
                 </ListItem>
                 <ListItem>
-                  <Typography variant="body1" gutterBottom>Dorée : {this.props.data.howToEarnGolden}</Typography>
+                  <Typography variant="body1" gutterBottom><b>Dorée </b>: {this.props.data.howToEarnGolden}</Typography>
                 </ListItem>
               </div>
 
